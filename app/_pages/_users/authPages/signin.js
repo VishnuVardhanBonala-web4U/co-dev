@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import CustomInput from '@/app/_components/CustomInput/CustomInput';
 import { signinInputs } from '@/app/_components/_data/data';
 import Link from 'next/link';
+import User from '@/models/User';
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Signin = () => {
 
     const handleSignin = (e) => {
         e.preventDefault();
-        const user = users.find(
+        const user = User.find(
             (user) => user.email === formData.email && user.password === formData.password
         );
 
