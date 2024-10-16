@@ -8,8 +8,8 @@ import axios from 'axios';
 
 const Signin = () => {
     const [formData, setFormData] = useState({
-        email: '',
-        password: ''
+        email: 'vishnuvardhan123@gmail.com',
+        password: '123'
     });
     const [error, setError] = useState('');
     const router = useRouter();
@@ -33,7 +33,7 @@ const Signin = () => {
 
     // Redirect to dashboard on successful login
     if (response.status === 200) {
-      router.push('/dashboard');
+      router.push('/');
     } else {
       setError('Login failed. Please try again.'); // Handle unexpected status codes
     }

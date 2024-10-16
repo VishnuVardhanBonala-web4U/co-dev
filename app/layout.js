@@ -1,6 +1,7 @@
 "use client"
 import Navbar from './_components/Navbar/Navbar';
 import Sidebar from './_components/Sidebar/Sidebar';
+import 'regenerator-runtime/runtime';
 import './globals.css';
 
 import { useState } from 'react';
