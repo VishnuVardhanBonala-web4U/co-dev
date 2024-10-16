@@ -1,7 +1,9 @@
 "use client";
 import { signupInputs } from '@/app/_components/_data/data';
 import CustomInput from '@/app/_components/CustomInput/CustomInput';
+import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 
 const Signup = () => {
@@ -15,15 +17,30 @@ const Signup = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        //console.log(formData)
     };
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-        // Here you can handle signup logic (e.g., save user data)
+    const router=useRouter()
+
+    const handleSignup = async (e) => {
+    e.preventDefault();
+    setMessage(''); // Reset the message before submission
+
+    try {
+      const response = await axios.post('/api/auth/signup', formData); // Adjust this URL based on your API route
+
+        if (response.status === 200) {
+          router.push('/auth/signin'); // Redirect to the sign-in page
         setMessage(`User ${formData.username} signed up successfully!`);
-        console.log('User data:', formData);
-    };
+      }
+    } catch (error) {
+      console.error('Error during signup:', error.message);
+      const errorMessage = error.response?.data?.msg || 'Signup failed. Please try again.';
+      setMessage(errorMessage);
+    }
 
+    console.log('User data:', formData); // Log the user data
+  };
        const isFormValid = Object.values(formData).every(value => value.trim() !== '');
 
     return (

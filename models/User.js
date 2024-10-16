@@ -1,24 +1,28 @@
-import mongoose, {  models, model } from "mongoose";
-
-
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    username:{
-        type:String,
-        require:true,
-    },
-    email:{
+    username: {
         type: String,
-        unique:true,
-        require:true
+        required: true,
     },
-    password:{
-        type:String,
-        required:true,
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
     }
 });
 
+// Create a singleton for the User model
+let UserModel;
 
-const User = models.User || model("User", userSchema)
+if (mongoose.connection && mongoose.connection.models) {
+    UserModel = mongoose.connection.models.User || mongoose.model('User', userSchema);
+} else {
+    UserModel = mongoose.model('User', userSchema);
+}
 
-export default User;
+export default UserModel;

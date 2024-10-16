@@ -1,24 +1,24 @@
-import User from "@/models/User";
+import UserModel from "@/models/User";
 import dbConnect from "@/utils/dbConnect";
 import { NextResponse } from "next/server"
 
 
 export const POST =  async (req) => {
-    const {username, email, password} = await req.json();
+    const {username, email, passaword} = await req.json();
     try {
         await dbConnect();
-        const user = await User.findOne({email});
+        const user = await UserModel.findOne({email});
         if(user){
            return NextResponse.json({msg:"User already exist", user})
         }
 
-        const newUser = await User.create({
+        const newUser = await UserModel.create({
             username,
             email,
             password
         })
 
-        return NextResponse.json({mag:"User created succefully"})
+        return NextResponse.json({mag:"User created Successfully"})
 
     } catch (error) {
         console.error(error);

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import CustomInput from '@/app/_components/CustomInput/CustomInput';
 import { signinInputs } from '@/app/_components/_data/data';
 import Link from 'next/link';
-import User from '@/models/User';
+import axios from 'axios';
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -19,19 +19,24 @@ const Signin = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSignin = (e) => {
-        e.preventDefault();
-        const user = User.find(
-            (user) => user.email === formData.email && user.password === formData.password
-        );
+   const handleSignin = async (e) => {
+    e.preventDefault();
+    console.log(formData);
 
-        if (user) {
-            console.log('User logged in:', user);
-            router.push('/dashboard'); // Redirect to dashboard
+    try {
+        const response = await axios.post('/api/auth/signin', formData);
+        console.log('User logged in:', response.data.user);
+        router.push('/dashboard'); // Redirect to dashboard
+    } catch (error) {
+        if (error.response) {
+            // Handle errors returned from the server
+            setError(error.response.data.error || "Something went wrong");
         } else {
-            setError('Invalid email or password');
+            setError("Network error, please try again");
         }
-    };
+    }
+};
+
 
     //
     const isFormValid = Object.values(formData).every(value => value.trim() !== '');

@@ -1,4 +1,4 @@
-import User from "@/models/User";
+/* import UserModel from "@/models/User";
 import dbConnect from "@/utils/dbConnect";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -15,7 +15,7 @@ providers: [
       const email = credentials.email
       try {
         await dbConnect();
-        const user = await User.findOne({email});
+        const user = await UserModel.findOne({email});
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return user
@@ -31,6 +31,6 @@ providers: [
     }
   })
 ],
-pages:"/signin",
+//pages:"/auth/signin",
 secret:process.env.NEXTAUTH_SECRET
-};
+}; */
