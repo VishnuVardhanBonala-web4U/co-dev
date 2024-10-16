@@ -21,26 +21,37 @@ const Signup = () => {
     };
 
     const router=useRouter()
+const handleSignup = async (e) => {
+  e.preventDefault();
+  setMessage(''); // Clear any previous messages
 
-    const handleSignup = async (e) => {
-    e.preventDefault();
-    setMessage(''); // Reset the message before submission
+  try {
+    // Send the signup data to your API
+    const response = await axios.post('/api/auth/signup', formData); // Ensure formData has the correct values (username, email, password)
 
-    try {
-      const response = await axios.post('/api/auth/signup', formData); // Adjust this URL based on your API route
+    // Check for successful response (status 201 for creation)
+    if (response.status === 201) {
+      // Set success message
+      setMessage(`User ${formData.username} signed up successfully!`);
 
-        if (response.status === 200) {
-          router.push('/auth/signin'); // Redirect to the sign-in page
-        setMessage(`User ${formData.username} signed up successfully!`);
-      }
-    } catch (error) {
-      console.error('Error during signup:', error.message);
-      const errorMessage = error.response?.data?.msg || 'Signup failed. Please try again.';
-      setMessage(errorMessage);
+      // Redirect to the sign-in page after successful signup
+      router.push('/auth/signin');
+    } else {
+      // Handle unexpected status codes
+      setMessage('Unexpected response. Please try again.');
     }
+  } catch (error) {
+    console.error('Error during signup:', error.message);
 
-    console.log('User data:', formData); // Log the user data
-  };
+    // Handle and display the error message from the response, if any
+    const errorMessage = error.response?.data?.msg || 'Signup failed. Please try again.';
+    setMessage(errorMessage);
+  }
+
+  // Log the form data (useful for debugging, but can be removed later)
+  console.log('User data:', formData);
+};
+
        const isFormValid = Object.values(formData).every(value => value.trim() !== '');
 
     return (

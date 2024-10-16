@@ -19,23 +19,37 @@ const Signin = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-   const handleSignin = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+ const handleSignin = async (e) => {
+  e.preventDefault(); // Prevent default form submission
+  setError(''); // Clear any previous errors
+  console.log(formData); // Log formData for debugging
 
-    try {
-        const response = await axios.post('/api/auth/signin', formData);
-        console.log('User logged in:', response.data.user);
-        router.push('/dashboard'); // Redirect to dashboard
-    } catch (error) {
-        if (error.response) {
-            // Handle errors returned from the server
-            setError(error.response.data.error || "Something went wrong");
-        } else {
-            setError("Network error, please try again");
-        }
+  try {
+    // Make the POST request to the signin API
+    const response = await axios.post('/api/auth/signin', formData);
+
+    // Log the user info (optional)
+    console.log('User logged in:', response.data.user);
+
+    // Redirect to dashboard on successful login
+    if (response.status === 200) {
+      router.push('/dashboard');
+    } else {
+      setError('Login failed. Please try again.'); // Handle unexpected status codes
     }
+  } catch (error) {
+    // Handle error response from the server
+    if (error.response) {
+      // Use error message from the server response or fallback to a default one
+      const errorMessage = error.response.data?.msg || "Invalid credentials. Please try again.";
+      setError(errorMessage);
+    } else {
+      // Handle network or other unexpected errors
+      setError("Network error. Please check your connection and try again.");
+    }
+  }
 };
+
 
 
     //

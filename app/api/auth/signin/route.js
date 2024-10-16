@@ -1,4 +1,3 @@
-// app/api/auth/signin/route.js
 import UserModel from "@/models/User";
 import dbConnect from "@/utils/dbConnect";
 import bcrypt from "bcrypt";
@@ -26,10 +25,10 @@ export const POST = async (req) => {
         return NextResponse.json({
             msg: "User logged in successfully",
             user: { id: user._id, email: user.email, username: user.username }
-        });
+        }, { status: 200 }); // Return success status code
 
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ msg: "Error during sign-in" }, { status: 500 });
+        return NextResponse.json({ msg: "Error during sign-in" }, { status: 500 }); // Added status code
     }
 };
