@@ -28,7 +28,7 @@ const Signup = () => {
 
     return (
         <div className="flex items-center  justify-center h-screen bg-gray-100">
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-md p-8 w-96  h-fit">
+            <div className="bg-white   rounded-lg shadow-sm hover:shadow-md p-8 w-96  h-fit">
                 <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
                 <form onSubmit={handleSignup}>
                     {signupInputs.map((input, index) => (
@@ -56,9 +56,9 @@ const Signup = () => {
                         </button>
                         
                     </div>
-                    <div className='flex  w-full items-center'>
+                    <div className='flex  w-full items-center justify-around '>
                       
-                            <span className='w-11/12 text-right mx-2'>If Already  have an account?</span>
+                            <span className='min-w-fit mx-2'>If Already  have an account?</span>
                             
 
                     <Link

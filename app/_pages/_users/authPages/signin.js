@@ -37,8 +37,8 @@ const Signin = () => {
     return (
 
         <>
-            <div className="flex   justify-center h-screen bg-gray-100">
-            <div className="flex flex-col w-3/12 items-center justify-center p-4 bg-gray-100">
+            <div className="flex    justify-center h-screen bg-gray-100">
+            <div className="flex flex-col  items-center justify-center p-4 bg-gray-100">
                 <form
                     onSubmit={handleSignin}
                     className="w-full  bg-white rounded-lg shadow-sm hover:shadow-md p-8"
@@ -68,14 +68,14 @@ const Signin = () => {
                         </button>
                         
                         </div>
-                         <div className='flex  w-full items-center'>
+                         <div className='flex  flex-wrap w-full justify-around items-center'>
                       
-                            <span className='w-11/12 text-right mx-2'>If Dont have an account?</span>
+                            <span className=' min-w-fit  mx-2'>If Dont have an account?</span>
                             
 
                     <Link
                         href="/auth/signup"
-                        className="text-center shadow-md w-4/12 h-auto p-1 bg-blue-500 text-white font-semibold  rounded hover:bg-blue-600 transition duration-200"
+                        className="text-center  min-w-fit shadow-md h-auto p-1 bg-blue-500 text-white font-semibold  rounded hover:bg-blue-600 transition duration-200"
                     >
                         Sign Up
                         </Link>
